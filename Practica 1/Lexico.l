@@ -8,6 +8,7 @@ char *yyltext;
 
 
 int yyerror(void);
+int yylex();
 
 %}
 
@@ -17,24 +18,24 @@ int yyerror(void);
 DIGITO			[0-9]
 LETRA			[a-zA-Z]
 
-OP_AS   		":"
-OP_SUM		    "+"
-OP_MUL          "*"
-OP_DIV          "/"
-OP_RES		    "-"
-OP_IGUAL        "="{2}
-OP_DIF          "!="
-OP_MENOR        "<" 
-OP_MAYOR        ">"
-OP_MENOR_IGUAL  "<=" 
-OP_MAYOR_IGUAL  ">="
-CORCHETE_ABRE   "{" 
-CORCHETE_CIERRE "}" 
-COMA            "," 
-CIERRE_DE_LINEA ";"
-PA			    "("
-PC			    ")"
-CTE_STRING      """.*"""
+OP_AS   		[":"]
+OP_SUM		    ["+"]
+OP_MUL          ["*"]
+OP_DIV          ["/"]
+OP_RES		    ["-"]
+OP_IGUAL        ["="{2}]
+OP_DIF          ["!="]
+OP_MENOR        ["<"]
+OP_MAYOR        [">"]
+OP_MENOR_IGUAL  ["<="]
+OP_MAYOR_IGUAL  [">="]
+CORCHETE_ABRE   ["{"] 
+CORCHETE_CIERRE ["}"]
+COMA            [","]
+CIERRE_DE_LINEA [";"]
+PA			    ["("]
+PC			    [")"]
+CTE_STRING      \".*\"
 CTE_ENT		    {OP_RES}?{DIGITO}{1,10}
 CTE_FLOAT       {OP_RES}?{DIGITO}{1,3}"."{DIGITO}{1,4}
 ID			    {LETRA}({LETRA}|"_")*
@@ -99,4 +100,5 @@ int main(int argc, char *argv[])
         yylex();
     }
     fclose(yyin);
+    return 0;
 }
